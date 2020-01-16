@@ -1,7 +1,36 @@
-function insurance(brand,year,type){
+function Insurance(brand,year,type){
     this.brand=brand
     this.year=year
     this.type=type
+}
+Insurance.prototype.getQuote = function(insurance) {
+    const base=2000
+    let amount
+    switch (this.brand) {
+        case '1':
+            amount=base*1.15
+            break;
+        case '2':
+            amount=base*1.05
+            break
+        case '3':
+            amount=base*1.35
+            break
+        default:
+            break;
+    }
+    //This get the difference between the actual year and the year of the car
+    const difference=new Date().getFullYear() - this.year
+    //Every year we must reduce 3% the value of insurance
+    amount = amount*(1 - difference*0.03)
+    //basic insurance times 30% and complete times 50%
+    if (this.type == 'basico') {
+        amount*=1.30
+    }else{
+        amount*=1.50
+    }
+    return amount
+
 }
 
 function Interfaz (){}
@@ -51,7 +80,13 @@ function getDataFromUI(e){
     if( seletedBrand ==='' || yearSelected === '' || type === ''){
         interfaz.showMsg('Some data is missing, complete and try again','error')
     }else{
-        console.log('Todo bien, todo correcto')
+        console.log(seletedBrand)
+        console.log(yearSelected)
+        console.log(type)
+        //If no one data is missing then... do the insurance quoute
+        const insurance= new Insurance(seletedBrand,yearSelected,type)
+        const amount=insurance.getQuote(insurance)
+        console.log(amount)
     }
 }
 
