@@ -35,6 +35,28 @@ Insurance.prototype.getQuote = function(insurance) {
 
 function Interfaz (){}
 
+Interfaz.prototype.showRes = function(insurance,total) {
+    const result=document.getElementById('resultado')
+    let brand
+    switch (insurance.brand) {
+        case '1':
+            brand='Americano'
+            break;
+        case '2':
+            brand='Asiatico'
+            break;
+        case '3':
+            brand='Europeo'
+            break;
+    }
+    const div=document.createElement('div')
+    div.innerHTML=`<p>${brand}</p> 
+                    <p>Year: ${insurance.year}</p> 
+                    <p>Type: ${insurance.type}</p> 
+                    <p>Total:${total}</p> `
+    result.appendChild(div)
+}
+
 Interfaz.prototype.showMsg = function(msg,type) {
     //Creating a div to insert into the DOM.... before the form
     const msgShowed=document.createElement('div')
@@ -55,6 +77,8 @@ Interfaz.prototype.showMsg = function(msg,type) {
         document.querySelector('.message').remove()
     },2000)
 }
+
+
 
 const SelectType=document.getElementById('cotizar-seguro')
 
@@ -80,13 +104,15 @@ function getDataFromUI(e){
     if( seletedBrand ==='' || yearSelected === '' || type === ''){
         interfaz.showMsg('Some data is missing, complete and try again','error')
     }else{
-        console.log(seletedBrand)
-        console.log(yearSelected)
-        console.log(type)
+        const resu=document.querySelector('#resultado div')
+        if (resu != null){
+            resu.remove()
+        }
         //If no one data is missing then... do the insurance quoute
         const insurance= new Insurance(seletedBrand,yearSelected,type)
         const amount=insurance.getQuote(insurance)
-        console.log(amount)
+        //After get the insurance quote, we need to show thw data on DOM
+        interfaz.showRes(insurance,amount)
     }
 }
 
