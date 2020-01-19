@@ -26,8 +26,10 @@ Insurance.prototype.getQuote = function(insurance) {
     //basic insurance times 30% and complete times 50%
     if (this.type == 'basico') {
         amount*=1.30
+        amount=amount.toFixed(2)
     }else{
         amount*=1.50
+        amount=amount.toFixed(2)
     }
     return amount
 
@@ -122,6 +124,7 @@ function getDataFromUI(e){
         const amount=insurance.getQuote(insurance)
         //After get the insurance quote, we need to show thw data on DOM
         interfaz.showRes(insurance,amount)
+        interfaz.showMsg('Getting the quote...','correcto')
     }
 }
 
