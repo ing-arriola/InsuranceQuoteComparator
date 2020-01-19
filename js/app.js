@@ -50,7 +50,8 @@ Interfaz.prototype.showRes = function(insurance,total) {
             break;
     }
     const div=document.createElement('div')
-    div.innerHTML=`<p>${brand}</p> 
+    div.innerHTML=` <p class='header'>Results:</p> 
+                    <p>${brand}</p> 
                     <p>Year: ${insurance.year}</p> 
                     <p>Type: ${insurance.type}</p> 
                     <p>Total:${total}</p> `
