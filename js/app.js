@@ -55,7 +55,15 @@ Interfaz.prototype.showRes = function(insurance,total) {
                     <p>Year: ${insurance.year}</p> 
                     <p>Type: ${insurance.type}</p> 
                     <p>Total:${total}</p> `
-    result.appendChild(div)
+    //Declare a spinner to make look like the App was getting data from a remote server
+    const spinner= document.querySelector('#cargando img')
+    spinner.style.display='block'
+    //Add time out of 3 second
+    setTimeout(() => {
+       spinner.style.display='none'
+       result.appendChild(div)    
+    }, 3000);
+    
 }
 
 Interfaz.prototype.showMsg = function(msg,type) {
